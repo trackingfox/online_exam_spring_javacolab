@@ -27,7 +27,7 @@ public class TestPaper {
 	private String testLevel;
 
 	@Column(name = "testPaperType")
-	private int testPaperType;// 1-global, 2-topic wise testPaper, 3- miscellaneous, 4- custom
+	private Integer testPaperType;// 1-global, 2-topic wise testPaper, 3- miscellaneous, 4- custom
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Topic> topics;

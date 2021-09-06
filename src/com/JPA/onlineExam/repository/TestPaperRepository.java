@@ -17,6 +17,10 @@ public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 	@Query("FROM TestPaper where Id>=1 AND Id<=8 ")
 	Set<TestPaper> fetchTestPapers();
 
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", /* "questionSet" */ })
+	@Query("FROM TestPaper where Id>=1 AND Id<=8 ")
+	Set<TestPaper> fetchTestPapersTopics();
+
 //	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet" })
 //	@Query("FROM TestPaper where topic_Id= ?1)")
 //	Set<TestPaper> fetchGlobalTestPapers(long Id);

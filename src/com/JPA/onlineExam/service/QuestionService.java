@@ -5,11 +5,6 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +27,6 @@ public class QuestionService {
 		this.repository = repository;
 	}
 
-	public void populateQuestion() throws IllegalStateException, FileNotFoundException {
-		List<QuestionTemp> questionList = importQuestionTempFromCsv();
-		// System.out.println(questionList.toString());
-
-		questionList.forEach(x -> repository.save(x));
-	}
-
 //	public List<Question> importQuestionFromCsv() throws IllegalStateException, FileNotFoundException {
 //
 //		String filename = "data/MCQDBSample2.csv";
@@ -51,14 +39,12 @@ public class QuestionService {
 //				.parse();
 //		return QuestionList;
 //	}
-
-//	public void populateQuestionTemp() throws IllegalStateException, FileNotFoundException {
+//
+//	public void populateQuestion() throws IllegalStateException, FileNotFoundException {
 //		List<Question> questionList = importQuestionFromCsv();
 //		System.out.println(questionList.toString());
 //		questionList.forEach(x -> repository.save(x));
 //	}
-//	
-//	
 
 	public List<QuestionTemp> importQuestionTempFromCsv() throws IllegalStateException, FileNotFoundException {
 
@@ -73,27 +59,17 @@ public class QuestionService {
 		return QuestionList;
 	}
 
+	public void populateQuestionTemp() throws IllegalStateException, FileNotFoundException {
+		List<QuestionTemp> questionTempList = importQuestionTempFromCsv();
+		// System.out.println(questionList.toString());
+		for (QuestionTemp Q : questionTempList)
+
+			questionList.forEach(x -> repository.save(x));
+	}
+
 	public Set<Question> fetchQues() {
 		Set<Question> results = repository.fetchQuestions();
 		return results;
-	}
-
-	// only for testing using entityManager below
-	@Test
-	public void importTodb() throws IllegalStateException, FileNotFoundException {
-
-		// use persistence.xml configuration
-
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Online_Exam");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		List<Question> questionlist1 = this.importQuestionFromCsv();
-		questionlist1.forEach(x -> em.merge(x));
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-
 	}
 
 }

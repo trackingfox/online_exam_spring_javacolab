@@ -38,7 +38,7 @@ public class TestPaperService {
 
 		List<TestPaper> testPaperList = new ArrayList<>();
 
-		Set<Topic> topics = repository3.FetchTopics();
+		List<Topic> topics = repository3.FetchTopics();
 
 		for (int i = 1; i <= 8; i++) {
 
@@ -48,7 +48,7 @@ public class TestPaperService {
 			TestPaper test1 = new TestPaper();
 			test1.setQuestionSet(results);
 			test1.setTestName("Full Stack JAVA");
-			test1.setTestLevel("I");
+			test1.setTestLevel(1);
 			test1.setTopics(topics);
 			testPaperList.add(test1);
 		}

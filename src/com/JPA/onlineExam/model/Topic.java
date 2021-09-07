@@ -16,11 +16,17 @@ public class Topic {
 	@Column(name = "Id")
 	private long Id;
 
-	private String titletopic;
+	@Column(unique = true)
+	private String title;
 	private String content;
 
 //	@OneToMany(fetch = FetchType.LAZY)
 //	private Set<Testpaper> testpapers;
+
+	@Override
+	public String toString() {
+		return "Topic [Id=" + Id + ", title=" + title + ", content=" + content + "]";
+	}
 
 	public long getId() {
 		return Id;
@@ -30,12 +36,12 @@ public class Topic {
 		Id = id;
 	}
 
-	public String getTitletopic() {
-		return titletopic;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitletopic(String titletopic) {
-		this.titletopic = titletopic;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -44,11 +50,6 @@ public class Topic {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	@Override
-	public String toString() {
-		return "Topic [Id=" + Id + ", titletopic=" + titletopic + ", content=" + content + "]";
 	}
 
 }

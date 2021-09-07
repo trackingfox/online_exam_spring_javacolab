@@ -2,7 +2,6 @@ package com.JPA.onlineExam.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class TopicWiseScoreService {
 
 	public List<TopicWiseScore> createTopicWiseScore() {
 
-		Set<Topic> topics = repository1.FetchTopics();
+		List<Topic> topics = repository1.FetchTopics();
 		List<Topic> new_topics = new ArrayList<Topic>(topics);
 
 		List<Score> scores = repository2.FetchScores();

@@ -1,5 +1,6 @@
 package com.JPA.onlineExam.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,13 +25,13 @@ public class TestPaper {
 	private String testName;
 
 	@Column(name = "testLevel")
-	private String testLevel;
+	private Integer testLevel;
 
 	@Column(name = "testPaperType")
 	private Integer testPaperType;// 1-global, 2-topic wise testPaper, 3- miscellaneous, 4- custom
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	private Set<Topic> topics;
+	private List<Topic> topics;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Question> questionSet;
@@ -51,12 +52,16 @@ public class TestPaper {
 		this.testName = testName;
 	}
 
-	public String getTestLevel() {
+	public Integer getTestLevel() {
 		return testLevel;
 	}
 
-	public void setTestLevel(String testLevel) {
+	public void setTestLevel(Integer testLevel) {
 		this.testLevel = testLevel;
+	}
+
+	public void setTestPaperType(Integer testPaperType) {
+		this.testPaperType = testPaperType;
 	}
 
 	public int getTestPaperType() {
@@ -67,12 +72,12 @@ public class TestPaper {
 		this.testPaperType = testPaperType;
 	}
 
-	public Set<Topic> getTopics() {
+	public List<Topic> getTopics() {
 		return topics;
 	}
 
-	public void setTopics(Set<Topic> topics) {
-		this.topics = topics;
+	public void setTopics(List<Topic> topics2) {
+		this.topics = topics2;
 	}
 
 	public Set<Question> getQuestionSet() {

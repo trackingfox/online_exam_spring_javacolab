@@ -30,3 +30,4 @@ hs_err_pid*
 !commit_Git.cmd
 !xcopy_updatethis.cmd
 !xcopy_updateMain.cmd
+!pullGitCopyMain.cmd

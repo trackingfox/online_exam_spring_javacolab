@@ -56,10 +56,40 @@ public class TestPaperService {
 
 	}
 
-	public void populateTestPaper() {
-		List<TestPaper> testPaperList = generateTestPaper();
+	public TestPaper generateOneTestPaper() {
 
-		testPaperList.forEach(x -> repository.save(x));
+		Set<Question> results = repository2.fetchQuestions();
+		List<Topic> topics = repository3.FetchTopics();
+
+		// CALCULATING TESTPAPER LEVEL BY TAKING AVERAGE OF ALL QUESTION LEVEL IN THAT
+		// TESTPAPER
+		int addlevel = 0;
+		float Average = (float) 0.0;
+		for (Question Q : results) {
+			addlevel = addlevel + Q.getLevel();
+		}
+		Average = ((float) addlevel / (float) results.size());
+		// System.out.println(Average + " " + addlevel + " " + results.size());
+		double fractional_part = Average % 1;
+		int AverageLevel = (int) ((fractional_part < 0.5) ? Average - fractional_part : Average - fractional_part + 1);
+
+		TestPaper testpaper = new TestPaper();
+		testpaper.setTestName("JAVA BASICS");
+		testpaper.setQuestionSet(results);
+		testpaper.setTestLevel(AverageLevel);
+		testpaper.setTopics(topics);
+		testpaper.setTestPaperType(1); // generating global testpaper
+
+		return testpaper;
+
+	}
+
+	public void populateTestPaper() {
+//		List<TestPaper> testPaperList = generateTestPaper();
+//
+//		testPaperList.forEach(x -> repository.save(x));
+		TestPaper testpaper = generateOneTestPaper();
+		repository.save(testpaper);
 
 	}
 

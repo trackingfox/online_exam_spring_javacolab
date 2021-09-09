@@ -89,7 +89,7 @@ public class QuestionService {
 			// For Primary Topic
 			List<Topic> databaseTopic = topicRepository.findByTitle(Q.getPrimaryTopic());
 			// List<Topic> databaseTopic = topicRepository.findAll();
-			System.out.println("from database " + databaseTopic);
+			// System.out.println("from database " + databaseTopic);
 
 			if (databaseTopic.isEmpty()) {
 
@@ -133,7 +133,7 @@ public class QuestionService {
 			Q1.setChoice_3(Q.getChoice_3());
 			Q1.setChoice_4(Q.getChoice_4());
 			Q1.setAnswer(Q.getAnswer());
-			Q1.setLevel(Q.getLevel());
+			Q1.setLevel(Integer.parseInt(Q.getLevel()));
 
 			questionList.add(Q1);
 			repository.save(Q1);

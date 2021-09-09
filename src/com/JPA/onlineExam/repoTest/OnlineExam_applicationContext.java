@@ -53,8 +53,8 @@ public class OnlineExam_applicationContext {
 //		TopicRepository topicRepo = context.getBean(TopicRepository.class);
 //		System.out.println(topicRepo.FetchTopics());
 
-//		TestPaperService testpaperservice = context.getBean(TestPaperService.class);
-//		testpaperservice.populateTestPaper();
+		TestPaperService testpaperservice = context.getBean(TestPaperService.class);
+		testpaperservice.populateTestPaper();
 //
 //		TestPaperRepository testPaperRepo = context.getBean(TestPaperRepository.class);
 //		System.out.println(testPaperRepo.fetchTestPapers());

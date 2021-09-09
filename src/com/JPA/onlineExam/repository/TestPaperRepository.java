@@ -16,7 +16,8 @@ import com.JPA.onlineExam.model.Topic;
 @Repository
 public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 
-	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet" })
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet",
+			"questionSet.second_Topics" })
 	@Query("FROM TestPaper where Id>=1 AND Id<=8 ")
 	Set<TestPaper> fetchTestPapers();
 

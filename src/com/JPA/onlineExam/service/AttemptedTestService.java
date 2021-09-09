@@ -64,9 +64,10 @@ public class AttemptedTestService {
 			for (int i = 0; i < no_of_attempt; i++) {
 
 				AttemptedTest test2 = new AttemptedTest();
-				test2.setTest(test1);
 				finalScore = calculateFinalScore(test1);
 				hashmap = testAnswers(test1);
+
+				test2.setTest(test1);
 				test2.setFinalScore(finalScore);
 				test2.setQuestionAnswersSet(hashmap);
 				test2.setScore(scores.get(k));
@@ -88,9 +89,10 @@ public class AttemptedTestService {
 		Map<Question, Character> hashmap = new HashMap<Question, Character>();
 
 		int finalScore = 0;
-		test2.setTest(testpaper);
 		finalScore = calculateFinalScore(testpaper);
 		hashmap = testAnswers(testpaper);
+
+		test2.setTest(testpaper);
 		test2.setFinalScore(finalScore);
 		test2.setQuestionAnswersSet(hashmap);
 		test2.setScore(scores.get(0));

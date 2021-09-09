@@ -35,7 +35,7 @@ public class Question {
 	@Column(length = 1000)
 	private String answer;
 	@Column(length = 1000)
-	private String level; // 1-for easy, 2-moderate, 3- difficult
+	private Integer level; // 1-for easy, 2-moderate, 3- difficult
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Topic> second_Topics;
@@ -104,11 +104,11 @@ public class Question {
 		this.answer = answer;
 	}
 
-	public String getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 

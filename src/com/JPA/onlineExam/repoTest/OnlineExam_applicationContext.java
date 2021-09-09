@@ -23,7 +23,7 @@ import com.JPA.onlineExam.service.UserService;
 public class OnlineExam_applicationContext {
 
 //	@Transactional
-	@Test
+//	@Test
 	public void TestPapercall() throws IllegalStateException, FileNotFoundException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -77,7 +77,7 @@ public class OnlineExam_applicationContext {
 
 	}
 
-//	@Test
+	@Test
 	public void InitializeDataBaseAndTestIO() throws IllegalStateException, FileNotFoundException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 

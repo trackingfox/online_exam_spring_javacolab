@@ -132,21 +132,21 @@ public class UserToDb_TOW {
 
 		// topic1.setTestPapers(testPapers);
 		topic1.setContent("Hello content");
-		topic1.setTitletopic("afjfajfl");
+		topic1.setTitle("afjfajfl");
 		em.merge(topic1);
 
 		// testPapers = FetchTestpaper(em);
 
 		// topic2.setTestPapers(testPapers);
 		topic2.setContent("Pqljjv");
-		topic2.setTitletopic("vnsdnlsl");
+		topic2.setTitle("vnsdnlsl");
 		em.merge(topic2);
 
 		// testPapers = FetchTestpaper(em);
 
 		// topic3.setTestPapers(testPapers);
 		topic3.setContent("gdgdgdlk");
-		topic3.setTitletopic("sjsljlskjglk");
+		topic3.setTitle("sjsljlskjglk");
 		em.merge(topic3);
 
 		em.getTransaction().commit();
@@ -183,8 +183,8 @@ public class UserToDb_TOW {
 			TestPaper test1 = new TestPaper();
 			test1.setQuestionSet(new HashSet<>(results));
 			test1.setTestName("Full Stack JAVA");
-			test1.setTestLevel("I");
-			test1.setTopics(new HashSet<>(topics));
+			test1.setTestLevel(1);
+			test1.setTopics(topics);
 			em.merge(test1);
 
 		}
@@ -588,7 +588,6 @@ public class UserToDb_TOW {
 
 		return scores;
 	}
-
 }
 
 class myEntityManager {

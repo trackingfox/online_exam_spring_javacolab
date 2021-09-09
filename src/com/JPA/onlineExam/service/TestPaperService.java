@@ -56,7 +56,7 @@ public class TestPaperService {
 
 	}
 
-	public TestPaper generateOneTestPaper() {
+	public void generateOneTestPaper() {
 
 		Set<Question> results = repository2.fetchQuestions();
 		List<Topic> topics = repository3.FetchTopics();
@@ -80,17 +80,12 @@ public class TestPaperService {
 		testpaper.setTopics(topics);
 		testpaper.setTestPaperType(1); // generating global testpaper
 
-		return testpaper;
-
+//		TestPaper testpaper = generateOneTestPaper();
+		repository.save(testpaper);
 	}
 
 	public void populateTestPaper() {
-//		List<TestPaper> testPaperList = generateTestPaper();
-//
-//		testPaperList.forEach(x -> repository.save(x));
-		TestPaper testpaper = generateOneTestPaper();
-		repository.save(testpaper);
-
+		List<TestPaper> testPaperList = generateTestPaper();
+		testPaperList.forEach(x -> repository.save(x));
 	}
-
 }

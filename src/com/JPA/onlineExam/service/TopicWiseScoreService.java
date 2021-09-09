@@ -66,25 +66,25 @@ public class TopicWiseScoreService {
 		St5.setTopic(new_topics.get(4));
 		St5.setScore(scores.get(4));
 
-		topicWiseScoreList.add(St5);
-
-		TopicWiseScore St6 = new TopicWiseScore();
-		St6.setTopic(new_topics.get(5));
-		St6.setScore(scores.get(5));
-
-		topicWiseScoreList.add(St6);
-
-		TopicWiseScore St7 = new TopicWiseScore();
-		St7.setTopic(new_topics.get(6));
-		St7.setScore(scores.get(6));
-
-		topicWiseScoreList.add(St7);
-
-		TopicWiseScore St8 = new TopicWiseScore();
-		St8.setTopic(new_topics.get(7));
-		St8.setScore(scores.get(7));
-
-		topicWiseScoreList.add(St8);
+//		topicWiseScoreList.add(St5);
+//
+//		TopicWiseScore St6 = new TopicWiseScore();
+//		St6.setTopic(new_topics.get(5));
+//		St6.setScore(scores.get(5));
+//
+//		topicWiseScoreList.add(St6);
+//
+//		TopicWiseScore St7 = new TopicWiseScore();
+//		St7.setTopic(new_topics.get(6));
+//		St7.setScore(scores.get(6));
+//
+//		topicWiseScoreList.add(St7);
+//
+//		TopicWiseScore St8 = new TopicWiseScore();
+//		St8.setTopic(new_topics.get(7));
+//		St8.setScore(scores.get(7));
+//
+//		topicWiseScoreList.add(St8);
 
 //		TopicWiseScore St9 = new TopicWiseScore();
 //		St9.setTopic(new_topics.get(8));

@@ -135,4 +135,9 @@ public class Question {
 				+ ", second_Topics=" + second_Topics + ", primaryTopic=" + primaryTopic + "]";
 	}
 
+	public String QuestionsText() {
+		return "Question [Id=" + Id + ", Question=" + Question + ", choice_1=" + choice_1 + ", choice_2=" + choice_2
+				+ ", choice_3=" + choice_3 + ", choice_4=" + choice_4 + ", answer=" + answer + ", level=" + level + "]";
+	}
+
 }

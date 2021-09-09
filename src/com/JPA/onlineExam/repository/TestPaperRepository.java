@@ -1,6 +1,7 @@
 package com.JPA.onlineExam.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -16,14 +17,20 @@ import com.JPA.onlineExam.model.Topic;
 @Repository
 public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 
-	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet",
-			"questionSet.second_Topics" })
-	@Query("FROM TestPaper where Id>=1 AND Id<=8 ")
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet", })
+	@Query("select a FROM TestPaper a JOIN FETCH a.questionSet  where a.Id>=1 AND a.Id<=8 ")
+	// JOIN FETCH a.questionSet b JOIN FETCH b.second_Topics
 	Set<TestPaper> fetchTestPapers();
 
 	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", /* "questionSet" */ })
-	@Query("FROM TestPaper where Id>=1 AND Id<=8 ")
+	@Query("select a FROM TestPaper a LEFT JOIN FETCH a.topics where a.Id>=1 AND a.Id<=8 ")
 	Set<TestPaper> fetchTestPapersTopics();
+
+	// get only one TestPaper by ID
+	@Override
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet", "questionSet.second_Topics",
+			"questionSet.primaryTopic" })
+	Optional<TestPaper> findById(Long Id);
 
 //	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet" })
 //	@Query("FROM TestPaper where topic_Id= ?1)")
@@ -42,7 +49,9 @@ public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 //	Set<TestPaper> fetchCustomTestPapers(List<Long>Id, int no_Oftestpapers);
 
 	/*
-	 * The Code below is written by Towshif
+	 * ***************************************************************************
+	 * ************************The Code below is written by Towshif
+	 * ***************************************************************************
 	 */
 
 //	@Query("select a FROM TestPaper a LEFT JOIN FETCH a.topics LEFT JOIN FETCH a.questionSet  where a.Id>=1 AND a.Id<=3 ")
@@ -61,7 +70,16 @@ public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 	// To use this make topics LAZY and QUESTION EAGER in @entity
 	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics" })
 	@Query("select a FROM TestPaper a JOIN FETCH a.topics where a.Id>=1 AND a.Id<=3  ")
-	List<TestPaper> fetchTestPapers2();
+	List<TestPaper> fetchTestPaperTopicsIdontknow();
+
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { /* "topics", */"questionSet",
+			"questionSet.second_Topics", "questionSet.primaryTopic" })
+	@Query("select a FROM TestPaper a LEFT JOIN FETCH a.questionSet where a.Id>=1 and a.Id <=3")
+	List<TestPaper> fetchTestPaperQuestions();
+
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", /* "questionSet" */ })
+	@Query("select a FROM TestPaper a LEFT JOIN FETCH a.topics where a.Id>=1 AND a.Id<=8 ")
+	List<TestPaper> fetchTestPapersTopics2();
 
 	@Query("FROM Question where Id>=FLOOR(RAND()*(25-10+1))+10 AND Id<FLOOR(RAND()*(50-10+1))+30 ")
 	List<Question> fetchQuestions();
@@ -69,13 +87,11 @@ public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 	@Query("FROM Topic where rand() <= 0.4")
 	List<Topic> FetchTopics();
 
-//	@Override
-//	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "testName", "topics" })
-//	List<TestPaper> findAll();
-
 	@Override
-	@EntityGraph(type = EntityGraphType.FETCH, value = "get-entity-graph")
+//	@EntityGraph(type = EntityGraphType.FETCH, value = "get-entity-graph")
 //	@EntityGraph(attributePaths = { "topics", "questionSet" })
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet", "questionSet.second_Topics",
+			"questionSet.primaryTopic" })
 	List<TestPaper> findAll();
 
 //	@Query("FROM TestPaper where Id>=1 AND Id<=3  ") // Error
@@ -84,5 +100,9 @@ public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 //	@EntityGraph(attributePaths = { "testName", "topics" })
 //	@Query("FROM TestPaper a LEFT JOIN FETCH a.topics where a.Id between 1 and 3")
 //	List<TestPaper> fetchTestPapers();
+
+//	@Override
+//	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "testName", "topics" })
+//	List<TestPaper> findAll();
 
 }

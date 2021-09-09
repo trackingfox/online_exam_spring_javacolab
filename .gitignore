@@ -26,3 +26,6 @@ hs_err_pid*
 *.cmd
 *.bat
 *.exe
+
+!commit_Git.cmd
+!xcopy_update.cmd

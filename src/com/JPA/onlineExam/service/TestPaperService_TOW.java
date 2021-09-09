@@ -41,9 +41,9 @@ public class TestPaperService_TOW {
 			TestPaper test1 = new TestPaper();
 			test1.setQuestionSet(new HashSet<>(results));
 			test1.setTestName("Full Stack JAVA");
-			test1.setTestLevel("I");
+			test1.setTestLevel(1);
 			List<Topic> topics = repository.FetchTopics();
-			test1.setTopics(new HashSet<>(topics));
+			test1.setTopics(topics);
 			testPaperList.add(test1);
 		}
 		return testPaperList;

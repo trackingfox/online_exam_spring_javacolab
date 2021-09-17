@@ -23,19 +23,58 @@ import com.JPA.onlineExam.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	private UserRepository repository;
+	private UserRepository UserRepository;
 
 	@Autowired
-	private TestPaperRepository repository1;
+	private TestPaperRepository TestPaperRepository;
 
 	@Autowired
-	private AttemptedTestRepository repository2;
+	private AttemptedTestRepository AttTestRepository;
 
 	@Autowired
-	private TopicWiseScoreRepository repository3;
+	private TopicWiseScoreRepository TopiWiseScoreRepository;
 
 //	@Autowired
 //	private DailyActivity repository4;
+
+	public void viewUserProfile() {
+
+	}
+
+	public void viewTestPaper() {
+
+	}
+
+	public void viewAttemptedTestPaper() {
+
+	}
+
+	// SCORE SHOWING IN DASHBOARD
+	public void AverageScore() {
+
+	}
+
+	// LEVEL SHOWING IN DASHBOARD
+	public void levelProgress() {
+
+	}
+
+	public void createNewUser(String username, String password) {
+		User user = new User();
+
+		Set<TestPaper> TestPaperList = TestPaperRepository.fetchTestPapers();
+
+		user.setUserName(username);
+		user.setPassword(password);
+		user.setTestPaperList(TestPaperList);
+
+	}
+
+	public void UserLogin(int userId, String password) {
+
+	}
+//----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------	
 
 	public List<User> createUser() {
 
@@ -50,11 +89,11 @@ public class UserService {
 
 		List<User> userList = new ArrayList<>();
 
-		Set<TestPaper> TestPaperList = repository1.fetchTestPapers();
+		Set<TestPaper> TestPaperList = TestPaperRepository.fetchTestPapers();
 
-		Set<AttemptedTest> attemptTestPaperList = repository2.FetchAttemptedTestPaper1(1, 5);
+		Set<AttemptedTest> attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(1, 5);
 
-		Set<TopicWiseScore> TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(1, 1);
+		Set<TopicWiseScore> TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(1, 1);
 
 		user1.setUserName("Sharif");
 		user1.setPassword("password1");
@@ -66,8 +105,8 @@ public class UserService {
 
 		userList.add(user1);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(6, 8);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(2, 2);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(6, 8);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(2, 2);
 		// System.out.println("jabjk1 : " + TopicWiseScoreList);
 		user2.setUserName("Ramesh");
 		user2.setPassword("password2");
@@ -78,8 +117,8 @@ public class UserService {
 
 		userList.add(user2);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(9, 16);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(3, 3);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(9, 16);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(3, 3);
 		user3.setUserName("Nilesh");
 		user3.setPassword("password3");
 		user3.setTestPaperList(TestPaperList);
@@ -89,8 +128,8 @@ public class UserService {
 //
 		userList.add(user3);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(17, 21);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(4, 4);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(17, 21);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(4, 4);
 		user4.setUserName("Somesh");
 		user4.setPassword("password4");
 		user4.setTestPaperList(TestPaperList);
@@ -100,8 +139,8 @@ public class UserService {
 //
 		userList.add(user4);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(22, 25);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(5, 5);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(22, 25);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(5, 5);
 		user5.setUserName("Farukh");
 		user5.setPassword("password5");
 		user5.setTestPaperList(TestPaperList);
@@ -110,8 +149,8 @@ public class UserService {
 
 		userList.add(user5);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(26, 31);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(6, 6);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(26, 31);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(6, 6);
 		user6.setUserName("Sarukh");
 		user6.setPassword("password6");
 		user6.setTestPaperList(TestPaperList);
@@ -120,8 +159,8 @@ public class UserService {
 
 		userList.add(user6);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(32, 35);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(7, 7);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(32, 35);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(7, 7);
 		user7.setUserName("Amir");
 		user7.setPassword("password7");
 		user7.setTestPaperList(TestPaperList);
@@ -130,8 +169,8 @@ public class UserService {
 
 		userList.add(user7);
 
-		attemptTestPaperList = repository2.FetchAttemptedTestPaper1(36, 38);
-		TopicWiseScoreList = repository3.Fetch_TopicWiseScoreList(8, 8);
+		attemptTestPaperList = AttTestRepository.FetchAttemptedTestPaper1(36, 38);
+		TopicWiseScoreList = TopiWiseScoreRepository.Fetch_TopicWiseScoreList(8, 8);
 		user8.setUserName("Alam");
 		user8.setPassword("password8");
 		user8.setTestPaperList(TestPaperList);
@@ -148,7 +187,7 @@ public class UserService {
 	public Set<User> update_userToDb() {
 
 		List<User> userList = new ArrayList<User>();
-		userList = repository.FetchUser();
+		userList = UserRepository.FetchUser();
 
 		Set<User> final_userList = new HashSet<User>();
 
@@ -179,14 +218,14 @@ public class UserService {
 	public void populateUser() {
 		List<User> userList = createUser();
 
-		userList.forEach(x -> repository.save(x));
+		userList.forEach(x -> UserRepository.save(x));
 
 	}
 
 	public void populateFriends() {
 
 		Set<User> final_userList = update_userToDb();
-		final_userList.forEach(x -> repository.save(x));
+		final_userList.forEach(x -> UserRepository.save(x));
 
 	}
 

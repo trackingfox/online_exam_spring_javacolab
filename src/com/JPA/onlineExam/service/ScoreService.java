@@ -2,25 +2,44 @@ package com.JPA.onlineExam.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.JPA.onlineExam.model.AttemptedTest;
 import com.JPA.onlineExam.model.Score;
+import com.JPA.onlineExam.repository.AttemptedTestRepository;
 import com.JPA.onlineExam.repository.ScoreRepository;
 
 @Service
 public class ScoreService {
 
 	@Autowired
-	private ScoreRepository repository;
+	private AttemptedTestRepository AttRepository;
+
+	@Autowired
+	private ScoreRepository Scorerepository;
 
 	public ScoreRepository getRepository() {
-		return repository;
+		return Scorerepository;
 	}
 
 	public void setRepository(ScoreRepository repository) {
-		this.repository = repository;
+		this.Scorerepository = repository;
+	}
+
+	public void generateScoreMethod2(long att_testId) {
+		Optional<AttemptedTest> AT = AttRepository.findById(att_testId);
+		AttemptedTest Attempted_testpaper = AT.get();
+
+		int finalScore = Attempted_testpaper.getFinalScore();
+		Score score1 = new Score();
+		score1.setScore(finalScore);
+		// score1.setPercentile(null);
+
+		Scorerepository.save(score1);
+
 	}
 
 	public List<Score> generateScores() {
@@ -80,7 +99,7 @@ public class ScoreService {
 	public void populateScore() {
 		List<Score> ScoreList = generateScores();
 
-		ScoreList.forEach(x -> repository.save(x));
+		ScoreList.forEach(x -> Scorerepository.save(x));
 
 	}
 

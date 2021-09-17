@@ -2,6 +2,7 @@ package com.JPA.onlineExam.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,48 +19,33 @@ import com.JPA.onlineExam.repository.TopicRepository;
 public class TestPaperService {
 
 	@Autowired
-	private TestPaperRepository repository;
+	private TestPaperRepository TestPaperRepository;
 
 	@Autowired
-	private QuestionRepository repository2;
+	private QuestionRepository QRepository;
 
 	@Autowired
-	private TopicRepository repository3;
+	private TopicRepository TopicRepository;
 
 	public TestPaperRepository getRepository() {
-		return repository;
+		return TestPaperRepository;
 	}
 
 	public void setRepository(TestPaperRepository repository) {
-		this.repository = repository;
+		this.TestPaperRepository = repository;
 	}
 
-	public List<TestPaper> generateTestPaper() {
+	// GENERATE CUSTOMIZE TESTPAPER
+	public void generateCustomizeTestPaper(Integer testPaperType, List<Long> TopicIds, Integer testPaperLevel) {
 
-		List<TestPaper> testPaperList = new ArrayList<>();
+		Set<Question> results = QRepository.fetchQuestions();
+		List<Topic> topics = new ArrayList<>();
 
-		List<Topic> topics = repository3.FetchTopics();
-
-		for (int i = 1; i <= 8; i++) {
-
-			Set<Question> results = repository2.fetchQuestions();
-			// System.out.println(results.size());
-			// System.out.println(results.toString());
-			TestPaper test1 = new TestPaper();
-			test1.setQuestionSet(results);
-			test1.setTestName("Full Stack JAVA");
-			test1.setTestLevel(1);
-			test1.setTopics(topics);
-			testPaperList.add(test1);
+		for (Long Id : TopicIds) {
+			Optional<Topic> t = TopicRepository.findById(Id);
+			Topic topic = t.get();
+			topics.add(topic);
 		}
-		return testPaperList;
-
-	}
-
-	public void generateOneTestPaper() {
-
-		Set<Question> results = repository2.fetchQuestions();
-		List<Topic> topics = repository3.FetchTopics();
 
 		// CALCULATING TESTPAPER LEVEL BY TAKING AVERAGE OF ALL QUESTION LEVEL IN THAT
 		// TESTPAPER
@@ -78,14 +64,102 @@ public class TestPaperService {
 		testpaper.setQuestionSet(results);
 		testpaper.setTestLevel(AverageLevel);
 		testpaper.setTopics(topics);
-		testpaper.setTestPaperType(1); // generating global testpaper
+		testpaper.setTestPaperType(testPaperType);
 
-//		TestPaper testpaper = generateOneTestPaper();
-		repository.save(testpaper);
+		TestPaperRepository.save(testpaper);
+	}
+
+//GENERATE TOPIC WISE TESTPAPER
+	public void generateTopicWiseTestPaper(Integer testPaperType, long TopicId, Integer testPaperLevel) {
+
+		Set<Question> results = QRepository.fetchQuestions();
+		List<Topic> topics = new ArrayList<>();
+		Optional<Topic> t = TopicRepository.findById(TopicId);
+		Topic topic = t.get();
+		topics.add(topic);
+		// CALCULATING TESTPAPER LEVEL BY TAKING AVERAGE OF ALL QUESTION LEVEL IN THAT
+		// TESTPAPER
+		int addlevel = 0;
+		float Average = (float) 0.0;
+		for (Question Q : results) {
+			addlevel = addlevel + Q.getLevel();
+		}
+		Average = ((float) addlevel / (float) results.size());
+		// System.out.println(Average + " " + addlevel + " " + results.size());
+		double fractional_part = Average % 1;
+		int AverageLevel = (int) ((fractional_part < 0.5) ? Average - fractional_part : Average - fractional_part + 1);
+
+		TestPaper testpaper = new TestPaper();
+		testpaper.setTestName("JAVA BASICS");
+		testpaper.setQuestionSet(results);
+		testpaper.setTestLevel(AverageLevel);
+		testpaper.setTopics(topics);
+		testpaper.setTestPaperType(testPaperType);
+
+		TestPaperRepository.save(testpaper);
+	}
+
+//GENERATE GLOBAL TESTPAPER
+	public void generateGlobalTestPaper(Integer testPaperType, Integer testPaperLevel) {
+
+		Set<Question> results = QRepository.fetchQuestions();
+		List<Topic> topics = TopicRepository.FetchTopics();
+
+		// CALCULATING TESTPAPER LEVEL BY TAKING AVERAGE OF ALL QUESTION LEVEL IN THAT
+		// TESTPAPER
+		int addlevel = 0;
+		float Average = (float) 0.0;
+		for (Question Q : results) {
+			addlevel = addlevel + Q.getLevel();
+		}
+		Average = ((float) addlevel / (float) results.size());
+		// System.out.println(Average + " " + addlevel + " " + results.size());
+		double fractional_part = Average % 1;
+		int AverageLevel = (int) ((fractional_part < 0.5) ? Average - fractional_part : Average - fractional_part + 1);
+
+		TestPaper testpaper = new TestPaper();
+		testpaper.setTestName("JAVA BASICS");
+		testpaper.setQuestionSet(results);
+		testpaper.setTestLevel(AverageLevel);
+		testpaper.setTopics(topics);
+		testpaper.setTestPaperType(testPaperType);
+
+		TestPaperRepository.save(testpaper);
+	}
+
+//GENERATE MISCELLANEOUS TEST	
+	public void generateMiscellaneousTestPaper(Integer testPaperType, Integer testPaperLevel) {
+
+		generateGlobalTestPaper((Integer) 4, (Integer) 3);
+	}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+
+	public List<TestPaper> generateTestPaper() {
+
+		List<TestPaper> testPaperList = new ArrayList<>();
+
+		List<Topic> topics = TopicRepository.FetchTopics();
+
+		for (int i = 1; i <= 8; i++) {
+
+			Set<Question> results = QRepository.fetchQuestions();
+			// System.out.println(results.size());
+			// System.out.println(results.toString());
+			TestPaper test1 = new TestPaper();
+			test1.setQuestionSet(results);
+			test1.setTestName("Full Stack JAVA");
+			test1.setTestLevel(1);
+			test1.setTopics(topics);
+			testPaperList.add(test1);
+		}
+		return testPaperList;
+
 	}
 
 	public void populateTestPaper() {
 		List<TestPaper> testPaperList = generateTestPaper();
-		testPaperList.forEach(x -> repository.save(x));
+		testPaperList.forEach(x -> TestPaperRepository.save(x));
 	}
 }

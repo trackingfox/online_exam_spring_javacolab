@@ -1,5 +1,6 @@
 package com.JPA.onlineExam.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TestPaper")
@@ -20,6 +23,9 @@ public class TestPaper {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private long Id;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
 
 	@Column(name = "testName")
 	private String testName;
@@ -42,6 +48,14 @@ public class TestPaper {
 
 	public void setId(long id) {
 		Id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getTestName() {

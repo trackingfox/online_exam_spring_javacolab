@@ -28,8 +28,7 @@ public interface TestPaperRepository extends JpaRepository<TestPaper, Long> {
 
 	// get only one TestPaper by ID
 	@Override
-	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet", "questionSet.second_Topics",
-			"questionSet.primaryTopic" })
+	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "questionSet", "topics" })
 	Optional<TestPaper> findById(Long Id);
 
 //	@EntityGraph(type = EntityGraphType.FETCH, attributePaths = { "topics", "questionSet" })
